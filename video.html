@@ -4,7 +4,7 @@
     <body>
 <!-- 1. Include action buttons play/stop -->
 <button id="btn-start-recording">Start Recording</button>
-<button id="btn-stop-recording" disabled="disabled">Stop Recording</button>
+<button onclick="generateRecordingPreview()" id="btn-stop-recording" disabled="disabled">Stop Recording</button>
 
 <!--
     2. Include a video element that will display the current video stream
@@ -91,9 +91,24 @@ Note that you may want to host these scripts in your own server
             console.error('stopRecording failure', error);
         });
     }, false);
+    function generateRecordingPreview() {
+        let mediaBlob = new Blob(mediaChunks, { type: "video/webm" });
+        let mediaBlobUrl = URL.createObjectURL(mediaBlob);
+        
+        let recordingPreview = document.getElementById("recordingPreview");
+        recordingPreview.src = mediaBlobUrl;
+
+        let downloadButton = document.getElementById("downloadButton");
+        downloadButton.href = mediaBlobUrl;
+        downloadButton.download = "RecordedVideo.webm";
+    }
 </script>
-         <p>
+             <div>
+        <h2>Recording Preview</h2>
+        <video id="recordingPreview" width="240" height="180" autoplay controls></video>
+        <p>
             <a id="downloadButton">Download</a>
         </p>
+    </div>
     </body>
 </html>
