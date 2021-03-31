@@ -328,7 +328,54 @@
                 
     <button id="btnStop">STOP RECORDING</button>
   </p>
+       <script>
+
+    
+    let audioIN = { audio: true };
+    //  audio is true, for recording
   
+    // Access the permission for use
+    // the microphone
+    navigator.mediaDevices.getUserMedia(audioIN)
+  
+      // 'then()' method returns a Promise
+      .then(function (mediaStreamObj) {
+  
+        // 
+    let audioIN = { audio: true };
+    //  audio is true, for recording
+  
+    // Access the permission for use
+    // the microphone
+    navigator.mediaDevices.getUserMedia(audioIN)
+  
+      // 'then()' method returns a Promise
+      .then(function (mediaStreamObj) {
+  
+        // Connect the media stream to the
+        // first audio element
+        let audio = document.querySelector('audio');
+        //returns the recorded audio via 'audio' tag
+  
+        // 'srcObject' is a property which 
+        // takes the media object
+        // This is supported in the newer browsers
+        if ("srcObject" in audio) {
+          audio.srcObject = mediaStreamObj;
+        }
+        else {   // Old version
+          audio.src = window.URL
+            .createObjectURL(mediaStreamObj);
+        }
+  
+        // It will play the audio
+        audio.onloadedmetadata = function (ev) {
+  
+          // Play the audio in the 2nd audio
+          // element what is being recorded
+          audio.play();
+        };
+  </script>
  
   <audio controls></audio>
   
