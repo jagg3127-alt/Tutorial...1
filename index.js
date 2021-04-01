@@ -1,4 +1,4 @@
 function LanD() { 
-  var element = document.body;
-  element.classList.toggle("dark-mode");
+   var element = document.querySelector("#check");
+document.querySelector(".modal").style.display = element.checked ? "block" : "";
 }
